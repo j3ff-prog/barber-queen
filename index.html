@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barber Queen — Hair Studio & Spa | Nairobi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:      #111111;
+  --black-soft: #1A1A1A;
+  --black-mid:  #242424;
+  --black-card: #1E1E1E;
+  --rose:       #B76E79;
+  --rose-light: #D4A0A8;
+  --rose-pale:  #2A1A1E;
+  --gold:       #C9A84C;
+  --gold-dim:   #8C7030;
+  --cream:      #F5F0EC;
+  --cream-dim:  #C4BDB6;
+  --white:      #FFFFFF;
+  --border:     rgba(183,110,121,0.18);
+  --border-mid: rgba(183,110,121,0.3);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--black);
+  color: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 2px; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
+  background: rgba(17,17,17,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-logo {
+  font-family: 'Cormorant', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--cream);
+}
+.nav-logo span { color: var(--rose); font-style: italic; }
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--rose-light); }
+.nav-cta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--rose);
+  padding: 0.65rem 1.8rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--rose-light); transform: translateY(-1px); }
+
+/* ─── HAMBURGER ─── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--cream);
+  transition: all 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 72px; left: 0; right: 0;
+  background: var(--black-soft);
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 6%;
+  z-index: 99;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--rose-light); }
+.mobile-menu .mob-cta {
+  color: var(--black);
+  background: var(--rose);
+  padding: 0.8rem 1.5rem;
+  border-radius: 2px;
+  text-align: center;
+  width: 100%;
+}
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 72px 6% 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg-line {
+  position: absolute;
+  top: 0; bottom: 0;
+  right: 38%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--border-mid) 30%, var(--border-mid) 70%, transparent);
+  pointer-events: none;
+}
+.hero-bg-circle {
+  position: absolute;
+  top: 50%;
+  right: -10%;
+  transform: translateY(-50%);
+  width: min(640px, 90vw);
+  height: min(640px, 90vw);
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  pointer-events: none;
+}
+.hero-bg-circle::before {
+  content: '';
+  position: absolute;
+  inset: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(183,110,121,0.1);
+}
+.hero-bg-glow {
+  position: absolute;
+  top: 30%;
+  right: 10%;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(183,110,121,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 5rem 0;
+}
+.hero-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  opacity: 0;
+  animation: fade-up 0.8s 0.2s forwards;
+}
+.hero-label::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--rose);
+  flex-shrink: 0;
+}
+.hero-title {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(3.2rem, 6vw, 5.8rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+  margin-bottom: 1.6rem;
+  opacity: 0;
+  animation: fade-up 0.8s 0.35s forwards;
+}
+.hero-title em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--rose-light);
+  display: block;
+}
+.hero-title strong {
+  font-weight: 300;
+  color: var(--gold);
+  font-style: normal;
+}
+.hero-body {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--cream-dim);
+  max-width: 440px;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fade-up 0.8s 0.5s forwards;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fade-up 0.8s 0.65s forwards;
+}
+.btn-primary {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--rose);
+  padding: 0.9rem 2.4rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: var(--rose-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(183,110,121,0.35);
+}
+.btn-outline {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rose-light);
+  border: 1px solid var(--border-mid);
+  padding: 0.9rem 2.4rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-block;
+}
+.btn-outline:hover {
+  border-color: var(--rose-light);
+  background: rgba(183,110,121,0.06);
+}
+.hero-meta {
+  display: flex;
+  gap: 2.5rem;
+  opacity: 0;
+  animation: fade-up 0.8s 0.8s forwards;
+}
+.meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+.meta-val {
+  font-family: 'Cormorant', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--rose-light);
+  line-height: 1;
+}
+.meta-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  opacity: 0.7;
+}
+.meta-sep {
+  width: 1px;
+  background: var(--border);
+  align-self: stretch;
+}
+
+/* hero right panel */
+.hero-panel {
+  opacity: 0;
+  animation: fade-left 0.9s 0.5s forwards;
+}
+.panel-card {
+  background: var(--black-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.panel-header {
+  padding: 2rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.panel-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--rose), var(--gold));
+}
+.panel-logo {
+  font-family: 'Cormorant', serif;
+  font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  margin-bottom: 0.3rem;
+}
+.panel-logo span { color: var(--rose); font-style: italic; }
+.panel-sub {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  opacity: 0.6;
+}
+.panel-body { padding: 1.5rem 2rem; }
+.panel-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.panel-row:last-child { border-bottom: none; }
+.panel-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 2px;
+  background: var(--rose-pale);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.panel-icon svg { width: 16px; height: 16px; stroke: var(--rose-light); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.panel-row-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  opacity: 0.55;
+  margin-bottom: 0.15rem;
+}
+.panel-row-val {
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--cream);
+}
+.open-badge {
+  margin-left: auto;
+  background: rgba(34,139,34,0.15);
+  border: 1px solid rgba(34,139,34,0.3);
+  color: #6DBF6D;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.panel-footer {
+  padding: 1.25rem 2rem;
+  background: var(--rose-pale);
+  border-top: 1px solid var(--border);
+}
+.panel-footer-text {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--cream-dim);
+  line-height: 1.7;
+}
+.panel-footer-text strong {
+  font-weight: 500;
+  color: var(--rose-light);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-left {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── TICKER ─── */
+.ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--rose);
+  padding: 0.8rem 0;
+  position: relative;
+  z-index: 1;
+}
+.ticker-track { display: inline-block; animation: ticker 28s linear infinite; }
+.ticker-item {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--black);
+  padding: 0 2.5rem;
+}
+.ticker-sep { opacity: 0.4; margin-right: 0.3rem; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ─── SHARED SECTION STYLES ─── */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 1.2rem;
+}
+.section-tag::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--rose);
+}
+.section-title {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--cream);
+}
+.section-title em { font-style: italic; font-weight: 500; color: var(--rose-light); }
+
+/* ─── SERVICES ─── */
+#services {
+  padding: 7rem 6%;
+  background: var(--black-soft);
+  position: relative;
+  overflow: hidden;
+}
+#services::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-mid), transparent);
+}
+.services-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: end;
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+}
+.services-header-right {
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--cream-dim);
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  max-width: 1200px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+}
+.svc-card {
+  background: var(--black-soft);
+  padding: 2.5rem 2rem;
+  position: relative;
+  transition: background 0.3s;
+  overflow: hidden;
+}
+.svc-card:hover { background: var(--black-mid); }
+.svc-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 2rem; right: 2rem;
+  height: 1px;
+  background: linear-gradient(to right, var(--rose), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.svc-card:hover::after { transform: scaleX(1); }
+.svc-num {
+  font-family: 'Cormorant', serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--rose);
+  opacity: 0.5;
+  margin-bottom: 1.8rem;
+}
+.svc-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1.5rem;
+}
+.svc-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--rose-light);
+  fill: none;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.svc-name {
+  font-family: 'Cormorant', serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 0.7rem;
+  line-height: 1.2;
+}
+.svc-desc {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--cream-dim);
+  opacity: 0.7;
+}
+.svc-cta-card {
+  background: linear-gradient(135deg, var(--rose), #8A3F4A);
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+.svc-cta-card:hover { background: linear-gradient(135deg, var(--rose-light), var(--rose)); }
+.svc-cta-card::after { display: none; }
+.svc-cta-card .svc-cta-title {
+  font-family: 'Cormorant', serif;
+  font-size: 1.7rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.2;
+}
+.svc-cta-card .svc-cta-num { color: rgba(245,240,236,0.6); }
+.book-link {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--cream);
+  padding: 0.7rem 1.5rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.2s;
+  display: inline-block;
+}
+.book-link:hover { background: var(--gold); }
+
+/* ─── ABOUT ─── */
+#about {
+  padding: 7rem 6%;
+  background: var(--black);
+}
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.about-visual {
+  position: relative;
+}
+.about-main-block {
+  background: var(--black-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.about-main-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--rose), var(--gold));
+}
+.about-main-block::after {
+  content: 'BQ';
+  position: absolute;
+  right: -0.5rem;
+  bottom: -1rem;
+  font-family: 'Cormorant', serif;
+  font-size: 9rem;
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(183,110,121,0.05);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.about-main-name {
+  font-family: 'Cormorant', serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.02em;
+}
+.about-main-name em { font-style: italic; color: var(--rose-light); }
+.about-main-tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  opacity: 0.5;
+  margin-bottom: 2.5rem;
+}
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.about-stat {
+  background: var(--black);
+  padding: 1.2rem 1rem;
+  text-align: center;
+}
+.stat-n {
+  font-family: 'Cormorant', serif;
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--rose-light);
+  display: block;
+  line-height: 1;
+}
+.stat-l {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  opacity: 0.5;
+  display: block;
+  margin-top: 0.3rem;
+}
+.about-badge {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background: var(--black-mid);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem 1.4rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--cream-dim);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  z-index: 2;
+}
+.about-badge strong { display: block; font-weight: 600; color: var(--gold); font-size: 0.95rem; margin-bottom: 0.1rem; }
+.about-body { padding-top: 1rem; }
+.about-text {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--cream-dim);
+  margin-bottom: 1.2rem;
+}
+.about-text strong { font-weight: 500; color: var(--rose-light); }
+.feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 2rem 0 2.5rem;
+}
+.feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--cream-dim);
+}
+.feature-list li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--rose);
+  flex-shrink: 0;
+}
+
+/* ─── STRIP ─── */
+#strip {
+  padding: 5rem 6%;
+  background: var(--black-mid);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+#strip::after {
+  content: '';
+  position: absolute;
+  top: 50%; right: 0;
+  transform: translateY(-50%);
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(183,110,121,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.strip-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.strip-title {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+.strip-title em { font-style: italic; font-weight: 500; color: var(--rose-light); }
+.strip-sub {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--cream-dim);
+  max-width: 480px;
+  line-height: 1.8;
+}
+.strip-cards {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+.strip-card {
+  background: var(--black-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.6rem 1.4rem;
+  text-align: center;
+  min-width: 110px;
+}
+.strip-card-val {
+  font-family: 'Cormorant', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--rose-light);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.strip-card-lab {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  opacity: 0.5;
+  display: block;
+}
+
+/* ─── LOCATION ─── */
+#location {
+  padding: 7rem 6%;
+  background: var(--black-soft);
+  position: relative;
+}
+#location::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-mid), transparent);
+}
+.location-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.4rem 1.6rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--black-card);
+  transition: background 0.2s;
+}
+.detail-item:last-child { border-bottom: none; }
+.detail-item:hover { background: var(--black-mid); }
+.detail-icon-box {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--rose-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.detail-icon-box svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--rose-light);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.detail-lbl {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rose);
+  opacity: 0.7;
+  margin-bottom: 0.3rem;
+}
+.detail-val {
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.6;
+}
+.detail-val a { color: var(--rose-light); text-decoration: none; }
+.detail-val a:hover { color: var(--cream); }
+.map-container {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  height: 440px;
+  position: relative;
+}
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  filter: grayscale(0.6) invert(0.85) hue-rotate(180deg) saturate(0.6) brightness(0.85);
+}
+
+/* ─── CTA ─── */
+#cta {
+  padding: 8rem 6%;
+  background: var(--black);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+#cta::before {
+  content: 'QUEEN';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Cormorant', serif;
+  font-size: clamp(8rem, 20vw, 18rem);
+  font-weight: 700;
+  font-style: italic;
+  color: rgba(183,110,121,0.03);
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+.cta-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.cta-title {
+  font-family: 'Cormorant', serif;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 1.2rem;
+  line-height: 1.1;
+}
+.cta-title em { font-style: italic; font-weight: 500; color: var(--rose-light); }
+.cta-sub {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--cream-dim);
+  margin-bottom: 3rem;
+  line-height: 1.8;
+}
+.cta-actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--black-soft);
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.footer-logo {
+  font-family: 'Cormorant', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 0.04em;
+}
+.footer-logo span { color: var(--rose); font-style: italic; }
+.footer-copy {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--cream-dim);
+  opacity: 0.4;
+}
+.footer-links { display: flex; gap: 1.5rem; align-items: center; }
+.footer-links a {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rose-light);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--cream); }
+
+/* ─── REVEAL ─── */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.rd1 { transition-delay: 0.1s; }
+.rd2 { transition-delay: 0.2s; }
+.rd3 { transition-delay: 0.3s; }
+.rd4 { transition-delay: 0.45s; }
+
+/* ─── RESPONSIVE ─── */
+
+/* Large tablets */
+@media (max-width: 1100px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-inner { gap: 3rem; }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  nav { padding: 0 4%; }
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+
+  .hero-inner { grid-template-columns: 1fr; padding: 4rem 0; }
+  .hero-panel { max-width: 480px; width: 100%; }
+  .hero-bg-line, .hero-bg-circle, .hero-bg-glow { display: none; }
+  .hero-body { max-width: 100%; }
+
+  .about-inner { grid-template-columns: 1fr; gap: 4rem; }
+  .about-visual { max-width: 480px; }
+
+  .services-header { grid-template-columns: 1fr; gap: 1.5rem; }
+
+  .strip-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .strip-cards { flex-wrap: wrap; }
+
+  .location-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .map-container { height: 320px; }
+
+  #services, #about, #location, #cta { padding: 5rem 4%; }
+  #strip { padding: 4rem 4%; }
+  footer { padding: 2rem 4%; }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  #hero { padding-left: 4%; padding-right: 4%; }
+  .hero-title { font-size: clamp(2.6rem, 12vw, 3.8rem); }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-outline { text-align: center; }
+  .hero-meta { gap: 1.5rem; }
+  .services-grid { grid-template-columns: 1fr; }
+  .svc-cta-card { min-height: auto; }
+  .strip-cards { gap: 0.75rem; }
+  .strip-card { min-width: 90px; padding: 1.2rem 1rem; }
+  .about-badge { display: none; }
+  .cta-actions { flex-direction: column; align-items: center; }
+  .footer-copy { display: none; }
+  .footer-links { gap: 1rem; }
+  .panel-body { padding: 1.2rem 1.4rem; }
+  .panel-header { padding: 1.5rem 1.4rem 1.2rem; }
+  .panel-footer { padding: 1rem 1.4rem; }
+  .about-main-block { padding: 2.5rem; }
+}
+
+/* Small mobile */
+@media (max-width: 380px) {
+  nav { padding: 0 3%; }
+  #hero { padding-left: 3%; padding-right: 3%; }
+  #services, #about, #location, #cta { padding-left: 3%; padding-right: 3%; }
+  .hero-meta { flex-direction: column; gap: 1rem; }
+  .meta-sep { display: none; }
+  .hero-meta .meta-item { flex-direction: row; align-items: center; gap: 0.75rem; }
+  .meta-val { font-size: 1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Barber<span>Queen</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#location">Location</a></li>
+  </ul>
+  <a href="tel:+254743895574" class="nav-cta">Book Now</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#location" onclick="closeMobile()">Location</a>
+  <a href="tel:+254743895574" class="mob-cta">Call to Book — +254 743 895574</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-line"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-label">Hair Studio &amp; Spa — Nairobi CBD</div>
+      <h1 class="hero-title">
+        Where Style<br>
+        Meets<br>
+        <em>Royalty</em>
+      </h1>
+      <p class="hero-body">
+        Nairobi's premier destination for expert haircuts, spa treatments, and full grooming services. Located at JKUAT Towers, Kenyatta Avenue — serving everyone who walks through our door.
+      </p>
+      <div class="hero-actions">
+        <a href="tel:+254743895574" class="btn-primary">Call +254 743 895574</a>
+        <a href="#services" class="btn-outline">View Services</a>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-val">7+</span>
+          <span class="meta-label">Services</span>
+        </div>
+        <div class="meta-sep"></div>
+        <div class="meta-item">
+          <span class="meta-val">6AM</span>
+          <span class="meta-label">Opens Daily</span>
+        </div>
+        <div class="meta-sep"></div>
+        <div class="meta-item">
+          <span class="meta-val">9PM</span>
+          <span class="meta-label">Closes Daily</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div class="panel-logo">Barber<span>Queen</span></div>
+          <div class="panel-sub">Hair Studio &amp; Spa &nbsp;·&nbsp; Room 26, JKUAT Towers</div>
+        </div>
+        <div class="panel-body">
+          <div class="panel-row">
+            <div class="panel-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            </div>
+            <div>
+              <div class="panel-row-label">Address</div>
+              <div class="panel-row-val">JKUAT Towers, Kenyatta Ave<br>Mezzanine 1, Room 26 — CBD</div>
+            </div>
+          </div>
+          <div class="panel-row">
+            <div class="panel-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.07 2.2 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="panel-row-label">Call / WhatsApp</div>
+              <div class="panel-row-val">+254 743 895574</div>
+            </div>
+          </div>
+          <div class="panel-row">
+            <div class="panel-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div class="panel-row-label">Hours</div>
+              <div class="panel-row-val">Monday – Sunday</div>
+            </div>
+            <div>
+              <div class="open-badge">Open Now</div>
+              <div style="font-size:0.78rem;color:var(--cream-dim);margin-top:0.3rem;text-align:right;">6:00 AM – 9:00 PM</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <p class="panel-footer-text">Full services guaranteed to your satisfaction. <strong>Walk-ins welcome</strong> — or call ahead to reserve your spot.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-sep">—</span> Haircuts</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Pedicure</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Manicure</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Facial</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Massage</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Scrub</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Waxing</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Nairobi CBD</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> We Style With Purpose</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Haircuts</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Pedicure</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Manicure</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Facial</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Massage</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Scrub</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Waxing</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> Nairobi CBD</span>
+    <span class="ticker-item"><span class="ticker-sep">—</span> We Style With Purpose</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div>
+      <div class="section-tag">Our Services</div>
+      <h2 class="section-title">Everything<br>You <em>Need</em></h2>
+    </div>
+    <p class="services-header-right">
+      From precision haircuts to rejuvenating spa treatments — Barber Queen offers a complete range of professional beauty and grooming services under one roof. Full satisfaction guaranteed.
+    </p>
+  </div>
+  <div class="services-grid">
+
+    <div class="svc-card reveal rd1">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24"><path d="M6 3l3 9-3 9M18 3l-3 9 3 9M6 12h12"/><circle cx="6" cy="3" r="1.5"/><circle cx="18" cy="3" r="1.5"/><circle cx="6" cy="21" r="1.5"/><circle cx="18" cy="21" r="1.5"/></svg>
+      </div>
+      <h3 class="svc-name">Haircuts</h3>
+      <p class="svc-desc">Precision cuts tailored to your face shape and style — from classic fades to contemporary cuts for men and women.</p>
+    </div>
+
+    <div class="svc-card reveal rd2">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><path d="M12 7v5l3 2"/></svg>
+      </div>
+      <h3 class="svc-name">Pedicure</h3>
+      <p class="svc-desc">Expert foot care with thorough cleaning, shaping, and polishing for perfectly maintained and beautiful feet.</p>
+    </div>
+
+    <div class="svc-card reveal rd3">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 00-2-2v0a2 2 0 00-2 2v0M14 10V4a2 2 0 00-2-2v0a2 2 0 00-2 2v2M10 10.5V6a2 2 0 00-2-2v0a2 2 0 00-2 2v8"/><path d="M18 11a2 2 0 114 0v3a8 8 0 01-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 112.83-2.83l1.96 1.96"/></svg>
+      </div>
+      <h3 class="svc-name">Manicure</h3>
+      <p class="svc-desc">Professional nail care from classic finishes to bold statement looks — beautifully maintained hands every time.</p>
+    </div>
+
+    <div class="svc-card reveal rd4">
+      <div class="svc-num">04</div>
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><path d="M2 12c2-4 6-4 10-4s8 0 10 4"/></svg>
+      </div>
+      <h3 class="svc-name">Facial</h3>
+      <p class="svc-desc">Targeted skincare treatments that cleanse, hydrate, and rejuvenate your complexion for a healthy, natural glow.</p>
+    </div>
+
+    <div class="svc-card reveal rd1">
+      <div class="svc-num">05</div>
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </div>
+      <h3 class="svc-name">Massage</h3>
+      <p class="svc-desc">Therapeutic massage sessions designed to relieve stress and restore balance. Free head massage included with select services.</p>
+    </div>
+
+    <div class="svc-card reveal rd2">
+      <div class="svc-num">06</div>
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+      </div>
+      <h3 class="svc-name">Scrub</h3>
+      <p class="svc-desc">Full body exfoliation to remove dead skin and renew your complexion — leaving you smooth, radiant, and thoroughly refreshed.</p>
+    </div>
+
+    <div class="svc-card reveal rd3">
+      <div class="svc-num">07</div>
+      <div class="svc-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+      </div>
+      <h3 class="svc-name">Waxing</h3>
+      <p class="svc-desc">Professional waxing for silky, smooth results that last. Fast, effective, and carried out with care and precision.</p>
+    </div>
+
+    <div class="svc-card svc-cta-card reveal rd4">
+      <div class="svc-num svc-cta-num">08</div>
+      <div class="svc-cta-title">Book Your Visit</div>
+      <a href="tel:+254743895574" class="book-link">+254 743 895574</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-main-block">
+        <div class="about-main-name">Barber<em>Queen</em></div>
+        <div class="about-main-tag">Hair Studio &amp; Spa &nbsp;&middot;&nbsp; Nairobi CBD</div>
+        <div class="about-stats">
+          <div class="about-stat">
+            <span class="stat-n">7+</span>
+            <span class="stat-l">Services</span>
+          </div>
+          <div class="about-stat">
+            <span class="stat-n">15h</span>
+            <span class="stat-l">Daily Hours</span>
+          </div>
+          <div class="about-stat">
+            <span class="stat-n">CBD</span>
+            <span class="stat-l">Location</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-badge">
+        <strong>Walk-ins Welcome</strong>
+        No appointment needed
+      </div>
+    </div>
+    <div class="about-body">
+      <div class="section-tag reveal">About Us</div>
+      <h2 class="section-title reveal rd1">A Studio Built<br>for <em>Everyone</em></h2>
+      <p class="about-text reveal rd2">
+        Welcome to <strong>Barber Queen Hair Studio and Spa</strong> — where full services are guaranteed to your satisfaction. Nestled in the heart of Nairobi's CBD at JKUAT Towers, we have built a space where every client feels at home.
+      </p>
+      <p class="about-text reveal rd2">
+        Whether you are in for a sharp haircut, a relaxing massage, or a complete spa treatment, our skilled team delivers every service with expertise, care, and attention to detail.
+      </p>
+      <ul class="feature-list reveal rd3">
+        <li>Expert stylists and beauty professionals</li>
+        <li>Full hair and spa services under one roof</li>
+        <li>Open every day, 6:00 AM to 9:00 PM</li>
+        <li>Centrally located — easy to reach from anywhere in Nairobi</li>
+        <li>Walk-ins always welcome</li>
+      </ul>
+      <a href="tel:+254743895574" class="btn-primary reveal rd4">Call +254 743 895574</a>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<section id="strip">
+  <div class="strip-inner">
+    <div>
+      <h2 class="strip-title reveal">We Style<br>With <em>Purpose</em></h2>
+      <p class="strip-sub reveal rd1">Step in for a service, leave feeling like a new you. We are committed to delivering quality that keeps you coming back. Because you deserve it.</p>
+    </div>
+    <div class="strip-cards reveal rd2">
+      <div class="strip-card">
+        <span class="strip-card-val">6 AM</span>
+        <span class="strip-card-lab">Opens</span>
+      </div>
+      <div class="strip-card">
+        <span class="strip-card-val">9 PM</span>
+        <span class="strip-card-lab">Closes</span>
+      </div>
+      <div class="strip-card">
+        <span class="strip-card-val">7</span>
+        <span class="strip-card-lab">Days Open</span>
+      </div>
+      <div class="strip-card">
+        <span class="strip-card-val">R. 26</span>
+        <span class="strip-card-lab">JKUAT Towers</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="location-inner">
+    <div>
+      <div class="section-tag reveal">Find Us</div>
+      <h2 class="section-title reveal rd1">Visit Our <em>Studio</em></h2>
+      <div class="detail-list">
+        <div class="detail-item reveal rd2">
+          <div class="detail-icon-box">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          </div>
+          <div>
+            <div class="detail-lbl">Address</div>
+            <div class="detail-val">JKUAT Towers (formerly ICEA Building)<br>Kenyatta Avenue, Mezzanine 1, Room 26<br>Nairobi CBD, Kenya</div>
+          </div>
+        </div>
+        <div class="detail-item reveal rd2">
+          <div class="detail-icon-box">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.07 2.2 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="detail-lbl">Call / WhatsApp</div>
+            <div class="detail-val"><a href="tel:+254743895574">+254 743 895574</a></div>
+          </div>
+        </div>
+        <div class="detail-item reveal rd3">
+          <div class="detail-icon-box">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="detail-lbl">Opening Hours</div>
+            <div class="detail-val">Monday – Sunday &nbsp;&middot;&nbsp; 6:00 AM – 9:00 PM</div>
+          </div>
+        </div>
+        <div class="detail-item reveal rd3">
+          <div class="detail-icon-box">
+            <svg viewBox="0 0 24 24"><path d="M21 2H3v16h5l3 3 3-3h7V2z"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="13" y2="13"/></svg>
+          </div>
+          <div>
+            <div class="detail-lbl">TikTok</div>
+            <div class="detail-val"><a href="https://www.tiktok.com/@barberqueen1" target="_blank" rel="noopener">@barberqueen1</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="map-container reveal rd2">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.818!2d36.8218!3d-1.2831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d664c0b9a7%3A0x1!2sJKUAT+Towers%2C+Kenyatta+Ave%2C+Nairobi!5e0!3m2!1sen!2ske!4v1"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Barber Queen Studio location">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="section-tag reveal" style="justify-content:center;">Ready to Visit?</div>
+    <h2 class="cta-title reveal rd1">Book Your<br><em>Royal</em> Treatment</h2>
+    <p class="cta-sub reveal rd2">Call us, WhatsApp, or simply walk in. We are open every day from 6 AM to 9 PM at JKUAT Towers, Kenyatta Avenue, Nairobi CBD.</p>
+    <div class="cta-actions reveal rd3">
+      <a href="tel:+254743895574" class="btn-primary">Call +254 743 895574</a>
+      <a href="https://www.tiktok.com/@barberqueen1" target="_blank" rel="noopener" class="btn-outline">Follow on TikTok</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Barber<span>Queen</span></div>
+  <div class="footer-copy">&copy; 2026 Barber Queen Hair Studio &amp; Spa &mdash; Nairobi, Kenya</div>
+  <div class="footer-links">
+    <a href="tel:+254743895574">+254 743 895574</a>
+    <a href="https://www.tiktok.com/@barberqueen1" target="_blank" rel="noopener">TikTok</a>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const ham = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  ham.addEventListener('click', () => {
+    ham.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  function closeMobile() {
+    ham.classList.remove('open');
+    menu.classList.remove('open');
+  }
+
+  // Scroll reveal
+  const revEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revEls.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
